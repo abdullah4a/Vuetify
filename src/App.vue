@@ -3,18 +3,11 @@
     <v-app-bar app color="success darken-2" light>
       <v-toolbar-title>Vuetify Login</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        v-for="link in links"
-        :key="link"
-        color="white"
-        text
-        rounded
-        class="my-2"
-      >
-        {{ link }}
-      </v-btn>
+      <v-btn text rounded>Home</v-btn>
+      <v-btn text rounded>About Us</v-btn>
+      <v-btn text rounded>Login</v-btn>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <!-- Login Section -->
       <v-card width="500px" class="mx-auto mt-9">
         <v-card-title>
@@ -26,7 +19,8 @@
             <v-text-field
               label="Username"
               prepend-icon="mdi-account"
-            ></v-text-field>
+              v-model="Uname"
+            />
             <v-text-field
               :type="showPassword ? 'text' : 'password'"
               label="Password"
@@ -41,11 +35,11 @@
           <v-spacer></v-spacer>
           <v-btn color="success" text>Register</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="info" text> Login</v-btn>
+          <v-btn color="info" text @click="GetUser"> Login</v-btn>
           <v-spacer></v-spacer>
         </v-card-actions>
       </v-card>
-    </v-content>
+    </v-main>
     <v-footer color="primary lighten-1" padless>
       <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
         {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
@@ -58,11 +52,17 @@
 import Vue from "vue";
 // import HelloWorld from "./components/HelloWorld.vue";
 import Component from "vue-class-component";
+import { login } from "../Shared";
 
 // Define the component in class-style
 @Component
 export default class Counter extends Vue {
   private showPassword = false;
+  private Uname = "";
   private links = ["Home", "About Us", "Login"];
+  GetUser() {
+    let UserInfo = login.fetchUser();
+    alert(UserInfo);
+  }
 }
 </script>
